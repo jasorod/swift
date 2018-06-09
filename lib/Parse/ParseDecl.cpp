@@ -4158,7 +4158,8 @@ bool Parser::parseGetSetImpl(ParseDeclOptions Flags,
     // Give syntax node an empty statement list.
     SyntaxParsingContext StmtListContext(SyntaxContext,
                                          SyntaxKind::CodeBlockItemList);
-    diagnose(Tok, diag::computed_property_no_accessors);
+
+    diagnose(Tok, isa<SubscriptDecl>(storage) ? diag::subscript_without_get : diag::computed_property_no_accessors);
     return true;
   }
 
